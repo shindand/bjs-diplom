@@ -7,19 +7,30 @@ function action (data) {
     }
 }
 
-//const userFormout = new LogoutButton();
-//userForm.LogoutButton = action({login: 'oleg@demo.ru3', password: 'demo'});
+const userFormout = new LogoutButton();
+userFormout.action({login: 'oleg@demo.ru3', password: 'demo'});
 
 
-ApiConnector.current(response => ({login: 'oleg@demo.ru', password: 'demo'}));
-ProfileWidget.showProfile(response);
+
+ApiConnector.current(response => ProfileWidget.showProfile(response.data));
+
 
 
 function exchangeRate() {
-    ApiConnector.getStocks(response => ({login: 'oleg@demo.ru', password: 'demo'}));
-    fillTable(response);
+    user3.clearTable();
+    ApiConnector.getStocks(response => user3.fillTable(response.data));
+    
 }
 
-const userForm = new RatesBoard();
-exchangeRate();
+
+let user3 = new RatesBoard();
+setInterval(() => exchangeRate(), 1000);
+
+
+
+let user4 = new MoneyManager();
+
+let user5 = new FavoritesWidget();
+ApiConnector.getFavorites(response => console.log(response));
+user5.clearTable();
 
