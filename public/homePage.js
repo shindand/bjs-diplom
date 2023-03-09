@@ -1,14 +1,10 @@
 
-
-function action (data) {
-    ApiConnector.logout(response => ({login: data.login, password: data.password}));
+const userFormOut = new LogoutButton();
+userFormOut.action = data => ApiConnector.login({login: data.login, password: data.password}, response => {
     if (response) {
-        location.reload();
-    }
-}
-
-const userFormout = new LogoutButton();
-userFormout.action({login: 'oleg@demo.ru3', password: 'demo'});
+       location.reload();
+     }
+ });
 
 
 
@@ -17,20 +13,26 @@ ApiConnector.current(response => ProfileWidget.showProfile(response.data));
 
 
 function exchangeRate() {
-    user3.clearTable();
-    ApiConnector.getStocks(response => user3.fillTable(response.data));
+    userExchangeRate.clearTable();
+    ApiConnector.getStocks(response => userExchangeRate.fillTable(response.data));
     
 }
 
 
-let user3 = new RatesBoard();
-setInterval(() => exchangeRate(), 1000);
+let userExchangeRate = new RatesBoard();
+setInterval(() => exchangeRate(), 5000);
 
 
 
-let user4 = new MoneyManager();
+let userMoneyManager = new MoneyManager();
 
-let user5 = new FavoritesWidget();
-ApiConnector.getFavorites(response => console.log(response));
-user5.clearTable();
+
+let userFavorites = new FavoritesWidget();
+ApiConnector.getFavorites(response => userFavorites.fillTable(response.data));
+
+
+ApiConnector.getFavorites(response => userFavorites.updateUsersList(response.data));
+
+
+
 
