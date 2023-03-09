@@ -1,28 +1,17 @@
-"use strict"
+"use strict"     
 
-  function loginFormCallback(data) {
-    ApiConnector.login({login: data.login, password: data.password}, response => console.log(response));
-      
-    if (response) {
-      location.reload();
-      return;
+const userFormLogin = new UserForm();
+ userFormLogin.loginFormCallback = data => ApiConnector.login({login: data.login, password: data.password}, response => {
+   if (response) {
+      location.reload();return;
     }
-      
- }
-   
-  function rigisterFormCallback(data) {
-    ApiConnector.login({login: data.login, password: data.password}, response => console.log(response));
-      
+   userFormLogin.catch(e);
+});
+
+  userFormLogin.registerFormCallback = data => ApiConnector.login({login: data.login, password: data.password}, response => {
     if (response) {
-      location.reload();
-      return;
-    }
-    console.log("Ошибка регистрации");
-  }
-     
-
-  const userForm = new UserForm();
-
-  loginFormCallback({login: 'oleg@demo.ru', password: 'demo',});
-
-  userForm.registerFormCallback = data => registerFormCallback(data);
+       location.reload();return;
+     }
+    userFormLogin.catch(e);
+ });
+ 
