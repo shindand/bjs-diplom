@@ -1,17 +1,21 @@
 "use strict"     
 
 const userFormLogin = new UserForm();
- userFormLogin.loginFormCallback = data => ApiConnector.login({login: data.login, password: data.password}, response => {
-   if (response) {
-      location.reload();return;
+ userFormLogin.loginFormCallback = data => ApiConnector.login({data}, response => {
+   if (response.success) {
+      location.reload();
     }
-   userFormLogin.catch(e);
+    else {
+       userFormLogin.setLoginErrorMessage("Ошибка авторизации. Неверный пароль/логин");
+    }
 });
 
-  userFormLogin.registerFormCallback = data => ApiConnector.login({login: data.login, password: data.password}, response => {
-    if (response) {
-       location.reload();return;
+  userFormLogin.registerFormCallback = data => ApiConnector.login({data}, response => {
+    if (response.success) {
+       location.reload();
      }
-    userFormLogin.catch(e);
+     else {
+       userFormLogin.setLoginErrorMessage("Ошибка регистрации. Попробуйте еще раз");
+     }
  });
  
