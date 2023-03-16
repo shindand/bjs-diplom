@@ -31,13 +31,21 @@ ApiConnector.getFavorites(response => {
         userFavorites.clearTable();
         userFavorites.fillTable(response.data);
         userMoneyManager.updateUsersList(response.data);
+        userFavorites.setMessage(response.success, "Список пользователей успешно загружен");
     }
+    else {
+        userFavorites.setMessage(response.success, response.error);
+     }
 });
 
 userFavorites.addUserCallback = data => ApiConnector.addUserToFavorites(data, response => {
     if (response.success) {
         userFavorites.clearTable();
         userFavorites.fillTable(response.data);
+        userFavorites.setMessage(response.success, "Пользователь успешно добавлен");
+     }
+     else {
+        userFavorites.setMessage(response.success, response.error);
      }
  });
 
@@ -45,7 +53,11 @@ userFavorites.removeUserCallback = data => ApiConnector.removeUserFromFavorites(
     if (response.success) {
         userFavorites.clearTable();
         userFavorites.fillTable(response.data);
+        userFavorites.setMessage(response.success, "Пользователь удален");
     }
+    else {
+        userFavorites.setMessage(response.success, response.error);
+     }
 });
 
 
