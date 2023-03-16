@@ -6,7 +6,7 @@ const userFormLogin = new UserForm();
       location.reload();
     }
     else {
-       userFormLogin.setLoginErrorMessage(response.success, response.error);
+       userFormLogin.setLoginErrorMessage(response.error);
     }
 });
 
@@ -15,7 +15,7 @@ const userFormLogin = new UserForm();
        location.reload();
      }
      else {
-       userFormLogin.setLoginErrorMessage(response.success, response.error);
+       userFormLogin.setRegisterErrorMessage(response.error);
      }
  });
  
